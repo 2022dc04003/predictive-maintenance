@@ -40,14 +40,17 @@
 
 `pip install boto3`
 
-#### -- For subsequent runs (without logging in to AWS Console)
+#### -- For subsequent runs (managing EC2 machine without logging in to AWS Console)
 
 `aws ec2 start-instances --instance-ids "<id>"`
 
 `aws ec2 describe-instance-status --instance-ids "<id>" | jq '.InstanceStatuses[] | .InstanceState | .Name'`
 
-SSH to EC2 machine and run the command:
+`aws ec2 stop-instances --instance-ids "<id>"`
+
+#### SSH to EC2 machine and run the command:
 
 `mlflow server --host 0.0.0.0 --default-artifact-root s3://mlflow-bucket-predictive-maintenance`
 
-`aws ec2 stop-instances --instance-ids "<id>"`
+In a different local terminal tab, run the ML experiments to log the results
+When you want to stop the server, Ctrl+C to kill the process and SSH out to local terminal
