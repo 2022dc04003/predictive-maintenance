@@ -1,7 +1,3 @@
-# The data set used in this example is from http://archive.ics.uci.edu/ml/datasets/Wine+Quality
-# P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis.
-# Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.
-
 import logging
 import sys
 import warnings
@@ -13,18 +9,18 @@ from sklearn.linear_model import ElasticNet
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
 
-import mlflow
 import mlflow.sklearn
 from mlflow.models import infer_signature
 
 logging.basicConfig(level=logging.WARN)
 logger = logging.getLogger(__name__)
 
+
 def eval_metrics(actual, pred):
-    rmse = np.sqrt(mean_squared_error(actual, pred))
-    mae = mean_absolute_error(actual, pred)
-    r2 = r2_score(actual, pred)
-    return rmse, mae, r2
+    rmse_local = np.sqrt(mean_squared_error(actual, pred))
+    mae_local = mean_absolute_error(actual, pred)
+    r2_local = r2_score(actual, pred)
+    return rmse_local, mae_local, r2_local
 
 
 if __name__ == "__main__":
@@ -37,6 +33,7 @@ if __name__ == "__main__":
         data = pd.read_csv(csv_url, sep=";")
     except Exception as e:
         logger.exception("Unable to download training & test CSV, check your internet connection. Error: %s", e)
+        sys.exit(1)
 
     # Split the data into training and test sets. (0.75, 0.25) split.
     train, test = train_test_split(data)
