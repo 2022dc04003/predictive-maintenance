@@ -50,7 +50,8 @@ if __name__ == "__main__":
     alpha = float(sys.argv[1]) if len(sys.argv) > 1 else 0.5
     l1_ratio = float(sys.argv[2]) if len(sys.argv) > 2 else 0.5
 
-    #mlflow.set_tracking_uri(uri="127.0.0.1:8080")
+    remote_tracking_uri = "http://ec2-3-110-32-142.ap-south-1.compute.amazonaws.com:5000"
+    mlflow.set_tracking_uri(remote_tracking_uri)
 
     with mlflow.start_run():
         lr = ElasticNet(alpha=alpha, l1_ratio=l1_ratio, random_state=42)
@@ -77,11 +78,11 @@ if __name__ == "__main__":
         tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
 
         # Model registry does not work with file store
-        #if tracking_url_type_store != "file":
+        if tracking_url_type_store != "file":
             # Register the model
             # There are other ways to use the Model Registry, which depends on the use case,
             # please refer to the doc for more information:
             # https://mlflow.org/docs/latest/model-registry.html#api-workflow
-            #mlflow.sklearn.log_model(lr, "model", registered_model_name="ElasticnetWineModel", signature=signature)
-        #else:
-        mlflow.sklearn.log_model(lr, "model", signature=signature)
+            mlflow.sklearn.log_model(lr, "model", registered_model_name="ElasticnetWineModel", signature=signature)
+        else:
+            mlflow.sklearn.log_model(lr, "model", signature=signature)
