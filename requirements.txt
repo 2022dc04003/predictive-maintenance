@@ -1,0 +1,21 @@
+scikit-learn
+pandas
+gdown
+dvc
+mlflow
+notebook
+matplotlib
+seaborn
+python-box
+pyYAML
+tqdm
+ensure
+joblib
+types-PyYAML
+scipy
+Flask
+Flask-Cors
+-e .
+linear_regressor
+setuptools
+numpy
