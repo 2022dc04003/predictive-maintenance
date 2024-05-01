@@ -4,11 +4,13 @@ from linear_regressor.constants import *
 
 from linear_regressor import logger
 
+
 class DataIngestionPipeline:
     def __init__(self):
         pass
 
-    def main(self):
+    @staticmethod
+    def main():
         try:
             config = ConfigurationManager()
             data_ingestion_config = config.get_data_ingestion_config()
@@ -22,9 +24,8 @@ class DataIngestionPipeline:
 if __name__ == '__main__':
     try:
         logger.info(f"----- Stage {DATA_INGESTION_STAGE_NAME} started -----")
-        obj = DataIngestionPipeline()
-        obj.main()
+        DataIngestionPipeline().main()
         logger.info(f"----- Stage {DATA_INGESTION_STAGE_NAME} completed -----")
-    except Exception as e:
-        logger.exception(e)
-        raise e
+    except Exception as ex:
+        logger.exception(ex)
+        raise ex

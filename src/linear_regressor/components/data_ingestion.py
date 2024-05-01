@@ -2,8 +2,8 @@ from linear_regressor import logger
 from linear_regressor.entity.config_entity import DataIngestionConfig
 import zipfile
 from boto3 import Session
-import botocore
 import os
+
 
 class DataIngestion:
     def __init__(self, config: DataIngestionConfig):
@@ -19,9 +19,8 @@ class DataIngestion:
             local_file = self.config.local_data_file
             s3.Bucket(bucket).download_file(object_key, local_file)
             logger.info(f'Raw data downloaded from s3://{bucket}/{object_key} to {local_file}')
-        except botocore.exceptions.ClientError as e:
-            if e.response['Error']['Code'] == "404":
-                print("The object does not exist.")
+        except Exception as e:
+            raise e
 
     def extract_data(self, delete_zip=False):
         local_file = self.config.local_data_file
@@ -34,4 +33,3 @@ class DataIngestion:
         if delete_zip:
             os.remove(local_file)
             logger.info(f'Zip file: {local_file} deleted')
-
