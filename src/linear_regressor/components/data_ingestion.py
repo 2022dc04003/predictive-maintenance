@@ -10,8 +10,7 @@ class DataIngestion:
         self.config = config
 
     def download_data(self):
-        session = Session(aws_access_key_id='AKIA5FTZFG4T2SC5NAMD',
-                          aws_secret_access_key='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')
+        session = Session()
         s3 = session.resource('s3')
 
         try:
