@@ -1,6 +1,5 @@
 scikit-learn
 pandas
-gdown
 dvc
 mlflow
 notebook
@@ -13,9 +12,10 @@ ensure
 joblib
 types-PyYAML
 scipy
+botocore
+boto3
+setuptools
+numpy
 Flask
 Flask-Cors
 -e .
-linear_regressor
-setuptools
-numpy

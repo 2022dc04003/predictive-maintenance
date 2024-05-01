@@ -161,3 +161,9 @@ cython_debug/
 
 # Mac .DS_Store
 .DS_Store
+
+# Logs
+/logs
+
+# Downloaded data from S3
+/artifacts
